@@ -4,10 +4,12 @@ import * as Font from 'expo-font';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
+import cartReducer from './store/reducers/cart';
 import productsReducer from './store/reducers/products';
 import ShopNavigator from './navigation/ShopNavigator';
 
 const rootReducer = combineReducers({
+  cart: cartReducer,
   products: productsReducer,
 });
 
