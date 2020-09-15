@@ -2,15 +2,24 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FlatList, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-
+import Product from '../../models/product';
 import ProductItem from '../../components/shop/ProductItem';
 import * as cartActions from '../../store/actions/cart';
 import HeaderButton from '../../components/UI/CustomHeaderButton';
 
-const ProductsOverviewScreen = (props) => {
+interface ProductsState {
+  products: {
+    availableProducts: Product[];
+    userProducts: Product[];
+  };
+}
+
+const ProductsOverviewScreen = (props: any) => {
   const dispatch = useDispatch();
 
-  const products = useSelector((state) => state.products.availableProducts);
+  const products = useSelector(
+    (state: ProductsState) => state.products.availableProducts
+  );
 
   return (
     <FlatList
@@ -35,7 +44,7 @@ const ProductsOverviewScreen = (props) => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = (navData) => {
+ProductsOverviewScreen.navigationOptions = (navData: any) => {
   return {
     headerTitle: 'All Products',
     headerRight: () => (

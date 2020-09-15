@@ -2,8 +2,8 @@ import PRODUCTS from '../../data/dummy-data';
 import Product from '../../models/product';
 
 interface ProductsState {
-  availableProducts: Array<Product>;
-  userProducts: Array<Product>;
+  availableProducts: Product[];
+  userProducts: Product[];
 }
 
 const initialState: ProductsState = {

@@ -8,18 +8,31 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-
+import Product from '../../models/product';
 import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/cart';
 
-const ProductsDetailScreen = (props) => {
+interface ProductsState {
+  products: {
+    availableProducts: Product[];
+    userProducts: Product[];
+  };
+}
+
+const ProductsDetailScreen = (props: any) => {
   const dispatch = useDispatch();
 
-  const productId = props.navigation.getParam('productId');
+  const productId: string = props.navigation.getParam('productId');
 
-  const selectedProduct = useSelector((state) =>
+  const selectedProduct:
+    | Product
+    | undefined = useSelector((state: ProductsState) =>
     state.products.availableProducts.find((prod) => prod.id === productId)
   );
+
+  if (selectedProduct === undefined) {
+    return null;
+  }
 
   return (
     <ScrollView>
@@ -40,7 +53,7 @@ const ProductsDetailScreen = (props) => {
   );
 };
 
-ProductsDetailScreen.navigationOptions = (navData) => {
+ProductsDetailScreen.navigationOptions = (navData: any) => {
   return {
     headerTitle: navData.navigation.getParam('productTitle'),
   };

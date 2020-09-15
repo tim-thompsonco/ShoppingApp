@@ -1,16 +1,25 @@
 import React from 'react';
 import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-
 import Colors from '../../constants/Colors';
 import CartItem from '../../components/shop/CartItem';
+import CartItemModel from '../../models/cart-item';
 import * as cartActions from '../../store/actions/cart';
 
-const CartScreen = (props) => {
+interface CartState {
+  cart: {
+    items: { [index: string]: CartItemModel };
+    totalAmount: number;
+  };
+}
+
+const CartScreen = () => {
   const dispatch = useDispatch();
 
-  const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
-  const cartItems = useSelector((state) => {
+  const cartTotalAmount = useSelector(
+    (state: CartState) => state.cart.totalAmount
+  );
+  const cartItems = useSelector((state: CartState) => {
     const transformedCartItems = [];
 
     for (const key in state.cart.items) {
@@ -41,6 +50,7 @@ const CartScreen = (props) => {
           color={Colors.accent}
           title='Checkout'
           disabled={cartItems.length === 0}
+          onPress={() => {}}
         />
       </View>
       <View>

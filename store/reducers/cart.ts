@@ -1,5 +1,6 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cart';
 import CartItem from '../../models/cart-item';
+import Product from '../../models/product';
 
 interface CartState {
   items: { [index: string]: CartItem };
@@ -14,10 +15,10 @@ const initialState: CartState = {
 export default (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const addedProduct = action.product;
-      const productPrice = action.product.price;
-      const productTitle = action.product.title;
-      let cartItem;
+      const addedProduct: Product = action.product;
+      const productPrice: number = action.product.price;
+      const productTitle: string = action.product.title;
+      let cartItem: CartItem;
 
       if (state.items[addedProduct.id]) {
         cartItem = new CartItem(
@@ -36,9 +37,9 @@ export default (state = initialState, action: any) => {
         totalAmount: state.totalAmount + productPrice,
       };
     case REMOVE_FROM_CART:
-      const selectedCartItem = state.items[action.pid];
-      const currentQty = selectedCartItem.quantity;
-      let updatedCartItems;
+      const selectedCartItem: CartItem = state.items[action.pid];
+      const currentQty: number = selectedCartItem.quantity;
+      let updatedCartItems: { [index: string]: CartItem };
 
       if (currentQty > 1) {
         const updatedCartItem = new CartItem(
