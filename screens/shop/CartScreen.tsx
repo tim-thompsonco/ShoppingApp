@@ -5,6 +5,7 @@ import Colors from '../../constants/Colors';
 import CartItem from '../../components/shop/CartItem';
 import CartItemModel from '../../models/cart-item';
 import * as cartActions from '../../store/actions/cart';
+import * as ordersActions from '../../store/actions/orders';
 
 interface CartState {
   cart: {
@@ -50,7 +51,9 @@ const CartScreen = () => {
           color={Colors.accent}
           title='Checkout'
           disabled={cartItems.length === 0}
-          onPress={() => {}}
+          onPress={() => {
+            dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
+          }}
         />
       </View>
       <View>
@@ -72,6 +75,10 @@ const CartScreen = () => {
       </View>
     </View>
   );
+};
+
+CartScreen.navigationOptions = {
+  headerTitle: 'Your Cart',
 };
 
 const styles = StyleSheet.create({
