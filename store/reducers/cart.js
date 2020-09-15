@@ -10,25 +10,25 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       const addedProduct = action.product;
-      const prodPrice = action.product.price;
-      const prodTitle = action.product.title;
+      const productPrice = action.product.price;
+      const productTitle = action.product.title;
       let cartItem;
 
       if (state.items[addedProduct.id]) {
         cartItem = new CartItem(
           state.items[addedProduct.id].quantity + 1,
-          prodPrice,
-          prodTitle,
-          state.items[addedProduct.id].sum + prodPrice
+          productPrice,
+          productTitle,
+          state.items[addedProduct.id].sum + productPrice
         );
       } else {
-        cartItem = new CartItem(1, prodPrice, prodTitle, prodPrice);
+        cartItem = new CartItem(1, productPrice, productTitle, productPrice);
       }
 
       return {
         ...state,
         items: { ...state.items, [addedProduct.id]: cartItem },
-        totalAmount: state.totalAmount + prodPrice,
+        totalAmount: state.totalAmount + productPrice,
       };
     case REMOVE_FROM_CART:
       const selectedCartItem = state.items[action.pid];
@@ -38,9 +38,9 @@ export default (state = initialState, action) => {
       if (currentQty > 1) {
         const updatedCartItem = new CartItem(
           selectedCartItem.quantity - 1,
-          selectedCartItem.prodPrice,
-          selectedCartItem.prodTitle,
-          selectedCartItem.sum - selectedCartItem.prodPrice
+          selectedCartItem.productPrice,
+          selectedCartItem.productTitle,
+          selectedCartItem.sum - selectedCartItem.productPrice
         );
 
         updatedCartItems = { ...state.items, [action.pid]: updatedCartItem };
@@ -52,7 +52,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: updatedCartItems,
-        totalAmount: state.totalAmount - selectedCartItem.prodPrice,
+        totalAmount: state.totalAmount - selectedCartItem.productPrice,
       };
     default:
       return state;
