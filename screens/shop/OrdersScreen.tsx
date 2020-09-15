@@ -4,6 +4,7 @@ import { FlatList, Text, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/UI/CustomHeaderButton';
 import Order from '../../models/order';
+import OrderItem from '../../components/shop/OrderItem';
 
 interface OrdersState {
   orders: {
@@ -17,7 +18,12 @@ const OrdersScreen = () => {
   return (
     <FlatList
       data={orders}
-      renderItem={(itemData) => <Text>{itemData.item.totalAmount}</Text>}
+      renderItem={(itemData) => (
+        <OrderItem
+          amount={itemData.item.totalAmount}
+          date={itemData.item.readableDate}
+        />
+      )}
     />
   );
 };

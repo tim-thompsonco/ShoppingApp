@@ -1,4 +1,5 @@
 import CartItem from './cart-item';
+import moment from 'moment';
 
 class Order {
   id: string;
@@ -11,6 +12,10 @@ class Order {
     this.items = items;
     this.totalAmount = totalAmount;
     this.date = date;
+  }
+
+  get readableDate() {
+    return moment(this.date).format('MMMM Do YYYY, hh:mm');
   }
 }
 
