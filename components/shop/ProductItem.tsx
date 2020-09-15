@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import {
   Button,
   View,
@@ -6,14 +6,25 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  TouchableOpacityProps,
   TouchableNativeFeedback,
+  TouchableNativeFeedbackProps,
   Platform,
 } from 'react-native';
-
 import Colors from '../../constants/Colors';
 
-const ProductItem = (props) => {
-  let TouchableCmp = TouchableOpacity;
+interface Props {
+  imageUrl: string;
+  title: string;
+  price: number;
+  onViewDetail(): any;
+  onAddToCart(): any;
+}
+
+const ProductItem: React.FC<Props> = (props) => {
+  let TouchableCmp: ComponentType<
+    TouchableOpacityProps | TouchableNativeFeedbackProps
+  > = TouchableOpacity;
 
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;

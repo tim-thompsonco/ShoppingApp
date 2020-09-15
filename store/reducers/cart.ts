@@ -1,12 +1,17 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cart';
 import CartItem from '../../models/cart-item';
 
-const initialState = {
+interface CartState {
+  items: { [index: string]: CartItem };
+  totalAmount: number;
+}
+
+const initialState: CartState = {
   items: {},
   totalAmount: 0,
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_TO_CART:
       const addedProduct = action.product;

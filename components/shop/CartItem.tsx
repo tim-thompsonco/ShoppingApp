@@ -8,7 +8,14 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const CartItem = (props) => {
+interface Props {
+  quantity: number;
+  title: string;
+  amount: number;
+  onRemove(): any;
+}
+
+const CartItem: React.FC<Props> = (props) => {
   return (
     <View style={styles.cartItem}>
       <View style={styles.itemData}>
