@@ -21,7 +21,7 @@ const OrderItem: React.FC<Props> = (props) => {
       </View>
       <Button
         color={Colors.primary}
-        title='Show Details'
+        title={showDetails ? 'Hide Details' : 'Show Details'}
         onPress={() => {
           setShowDetails((prevState) => !prevState);
         }}
