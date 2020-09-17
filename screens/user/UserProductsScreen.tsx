@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { FlatList, Platform } from 'react-native';
+import { Button, FlatList, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+
 import HeaderButton from '../../components/UI/CustomHeaderButton';
 import ProductItem from '../../components/shop/ProductItem';
 import Product from '../../models/product';
+import Colors from '../../constants/Colors';
 
 interface ProductsState {
   products: {
@@ -25,9 +27,11 @@ const UserProductsScreen = (props: any) => {
             imageUrl={itemData.item.imageUrl}
             title={itemData.item.title}
             price={itemData.item.price}
-            onViewDetail={() => {}}
-            onAddToCart={() => {}}
-          />
+            onSelect={() => {}}
+          >
+            <Button color={Colors.primary} title='Edit' onPress={() => {}} />
+            <Button color={Colors.primary} title='Delete' onPress={() => {}} />
+          </ProductItem>
         );
       }}
     />
