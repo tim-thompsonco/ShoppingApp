@@ -54,6 +54,8 @@ const EditProductsScreen = (props: any) => {
         )
       );
     }
+
+    props.navigation.goBack();
   }, [dispatch, prodId, title, description, imageUrl, price]);
 
   useEffect(() => {
