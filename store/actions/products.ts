@@ -1,4 +1,3 @@
-import { isDate } from 'moment';
 import Product from '../../models/product';
 
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
@@ -8,27 +7,35 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 export const fetchProducts = () => {
   return async (dispatch: any) => {
-    const response = await fetch(
-      'https://shoppingapp-a4047.firebaseio.com/products.json'
-    );
-
-    const resData = await response.json();
-    const loadedProducts: Product[] = [];
-
-    for (const key in resData) {
-      loadedProducts.push(
-        new Product(
-          key,
-          'u1',
-          resData[key].title,
-          resData[key].imageUrl,
-          resData[key].description,
-          resData[key].price
-        )
+    try {
+      const response = await fetch(
+        'https://shoppingapp-a4047.firebaseio.com/products.json'
       );
-    }
 
-    dispatch({ type: SET_PRODUCTS, products: loadedProducts });
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      const resData = await response.json();
+      const loadedProducts: Product[] = [];
+
+      for (const key in resData) {
+        loadedProducts.push(
+          new Product(
+            key,
+            'u1',
+            resData[key].title,
+            resData[key].imageUrl,
+            resData[key].description,
+            resData[key].price
+          )
+        );
+      }
+
+      dispatch({ type: SET_PRODUCTS, products: loadedProducts });
+    } catch (err) {
+      throw err;
+    }
   };
 };
 
@@ -44,7 +51,7 @@ export const createProduct = (
 ) => {
   return async (dispatch: any) => {
     const response = await fetch(
-      'https://shoppingapp-a4047.firebaseio.com/products.json',
+      'https://shoppingapp-a4047.firebaseio.com/products.jon',
       {
         method: 'POST',
         headers: {
