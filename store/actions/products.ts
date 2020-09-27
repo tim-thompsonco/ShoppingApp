@@ -41,12 +41,16 @@ export const fetchProducts = () => {
 
 export const deleteProduct = (productId: string) => {
   return async (dispatch: any) => {
-    await fetch(
+    const response = await fetch(
       `https://shoppingapp-a4047.firebaseio.com/products/${productId}.json`,
       {
         method: 'DELETE',
       }
     );
+
+    if (!response.ok) {
+      throw new Error('Error during product delete action!');
+    }
 
     dispatch({ type: DELETE_PRODUCT, pid: productId });
   };
@@ -97,7 +101,7 @@ export const updateProduct = (
   imageUrl: string
 ) => {
   return async (dispatch: any) => {
-    await fetch(
+    const response = await fetch(
       `https://shoppingapp-a4047.firebaseio.com/products/${id}.json`,
       {
         method: 'PATCH',
@@ -111,6 +115,10 @@ export const updateProduct = (
         }),
       }
     );
+
+    if (!response.ok) {
+      throw new Error('Error during product update action!');
+    }
 
     dispatch({
       type: UPDATE_PRODUCT,
