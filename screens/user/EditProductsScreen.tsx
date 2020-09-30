@@ -14,9 +14,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Product from '../../models/product';
 import HeaderButton from '../../components/UI/CustomHeaderButton';
 import Input from '../../components/UI/Input';
+import Centered from '../../components/UI/Centered';
 import * as productActions from '../../store/actions/products';
-import products from '../../store/reducers/products';
-import ProductsDetailScreen from '../shop/ProductsDetailScreen';
 import Colors from '../../constants/Colors';
 
 interface ProductsState {
@@ -145,9 +144,9 @@ const EditProductsScreen = (props: any) => {
 
   if (isLoading) {
     return (
-      <View style={styles.centered}>
+      <Centered>
         <ActivityIndicator size='large' color={Colors.primary} />
-      </View>
+      </Centered>
     );
   }
 
@@ -243,11 +242,6 @@ const styles = StyleSheet.create({
   },
   form: {
     margin: 20,
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 

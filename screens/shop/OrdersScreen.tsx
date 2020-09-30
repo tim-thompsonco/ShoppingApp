@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  FlatList,
-  Text,
-  Platform,
-  ActivityIndicator,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { FlatList, Platform, ActivityIndicator } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+
 import HeaderButton from '../../components/UI/CustomHeaderButton';
+import Centered from '../../components/UI/Centered';
 import Order from '../../models/order';
 import OrderItem from '../../components/shop/OrderItem';
 import * as ordersActions from '../../store/actions/orders';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Colors from '../../constants/Colors';
 
 interface OrdersState {
   orders: {
@@ -39,9 +34,9 @@ const OrdersScreen = () => {
 
   if (isLoading) {
     return (
-      <View style={styles.centered}>
+      <Centered>
         <ActivityIndicator size='large' color={Colors.primary} />
-      </View>
+      </Centered>
     );
   }
 
@@ -75,13 +70,5 @@ OrdersScreen.navigationOptions = (navData: any) => {
     ),
   };
 };
-
-const styles = StyleSheet.create({
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default OrdersScreen;

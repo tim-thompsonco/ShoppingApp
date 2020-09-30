@@ -5,9 +5,7 @@ import {
   FlatList,
   Platform,
   ActivityIndicator,
-  View,
   Text,
-  StyleSheet,
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
@@ -16,6 +14,7 @@ import ProductItem from '../../components/shop/ProductItem';
 import * as cartActions from '../../store/actions/cart';
 import * as productActions from '../../store/actions/products';
 import HeaderButton from '../../components/UI/CustomHeaderButton';
+import Centered from '../../components/UI/Centered';
 import Colors from '../../constants/Colors';
 
 interface ProductsState {
@@ -72,30 +71,30 @@ const ProductsOverviewScreen = (props: any) => {
 
   if (error) {
     return (
-      <View style={styles.centered}>
+      <Centered>
         <Text>An error occurred!</Text>
         <Button
           title='Try Again'
           onPress={loadProducts}
           color={Colors.primary}
         />
-      </View>
+      </Centered>
     );
   }
 
   if (isLoading) {
     return (
-      <View style={styles.centered}>
+      <Centered>
         <ActivityIndicator size='large' color={Colors.primary} />
-      </View>
+      </Centered>
     );
   }
 
   if (!isLoading && products.length == 0) {
     return (
-      <View style={styles.centered}>
+      <Centered>
         <Text>No products found. Maybe start adding some!</Text>
-      </View>
+      </Centered>
     );
   }
 
@@ -158,13 +157,5 @@ ProductsOverviewScreen.navigationOptions = (navData: any) => {
     ),
   };
 };
-
-const styles = StyleSheet.create({
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default ProductsOverviewScreen;
