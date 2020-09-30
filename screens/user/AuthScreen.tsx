@@ -6,7 +6,6 @@ import {
   View,
   KeyboardAvoidingView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import Input from '../../components/UI/Input';
 import Card from '../../components/UI/Card';
@@ -19,40 +18,42 @@ const AuthScreen = (props: any) => {
       keyboardVerticalOffset={50}
       style={styles.screen}
     >
-      <LinearGradient colors={['#ffedff', '#ffe3ff']}>
-        <Card style={styles.authContainer}>
-          <ScrollView>
-            <Input
-              id='email'
-              label='E-Mail'
-              keyboardType='email-address'
-              required
-              email
-              autoCapitalize='none'
-              errorMessage='Please enter a valid email address'
-              onInputChange={() => {}}
-              initialValue=''
-            />
-            <Input
-              id='password'
-              label='Password'
-              keyboardType='default'
-              secureTextEntry
-              required
-              minLength={5}
-              errorMessage='Please enter a valid password'
-              onInputChange={() => {}}
-              initialValue=''
-            />
+      <Card style={styles.authContainer}>
+        <ScrollView>
+          <Input
+            id='email'
+            label='E-Mail'
+            keyboardType='email-address'
+            required
+            email
+            autoCapitalize='none'
+            errorMessage='Please enter a valid email address'
+            onInputChange={() => {}}
+            initialValue=''
+          />
+          <Input
+            id='password'
+            label='Password'
+            keyboardType='default'
+            secureTextEntry
+            required
+            minLength={5}
+            errorMessage='Please enter a valid password'
+            onInputChange={() => {}}
+            initialValue=''
+          />
+          <View style={styles.buttonContainer}>
             <Button title='Login' color={Colors.primary} onPress={() => {}} />
+          </View>
+          <View style={styles.buttonContainer}>
             <Button
               title='Switch to Sign Up'
               color={Colors.accent}
               onPress={() => {}}
             />
-          </ScrollView>
-        </Card>
-      </LinearGradient>
+          </View>
+        </ScrollView>
+      </Card>
     </KeyboardAvoidingView>
   );
 };
@@ -69,9 +70,8 @@ const styles = StyleSheet.create({
     maxWidth: 400,
     padding: 20,
   },
-  gradient: {
-    height: '100%',
-    width: '100%',
+  buttonContainer: {
+    marginTop: 10,
   },
   screen: {
     flex: 1,
