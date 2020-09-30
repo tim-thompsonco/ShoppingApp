@@ -26,6 +26,7 @@ interface ProductsState {
 
 const ProductsOverviewScreen = (props: any) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(undefined);
 
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const ProductsOverviewScreen = (props: any) => {
 
   const loadProducts = useCallback(async () => {
     setError(undefined);
-    setIsLoading(true);
+    setIsRefreshing(true);
 
     try {
       await dispatch(productActions.fetchProducts());
@@ -44,11 +45,17 @@ const ProductsOverviewScreen = (props: any) => {
       setError(err.message);
     }
 
-    setIsLoading(false);
+    setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    loadProducts();
+    const getProducts = async () => {
+      setIsLoading(true);
+      await loadProducts();
+      setIsLoading(false);
+    };
+
+    getProducts();
   }, [dispatch, loadProducts]);
 
   useEffect(() => {
@@ -100,6 +107,8 @@ const ProductsOverviewScreen = (props: any) => {
 
   return (
     <FlatList
+      onRefresh={loadProducts}
+      refreshing={isRefreshing}
       data={products}
       renderItem={(itemData) => (
         <ProductItem
