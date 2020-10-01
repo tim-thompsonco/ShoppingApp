@@ -1,10 +1,12 @@
-import React, { useCallback, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import {
   Button,
   ScrollView,
   StyleSheet,
   View,
   KeyboardAvoidingView,
+  ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -46,6 +48,8 @@ const AuthScreen = (props: any) => {
   const dispatch = useDispatch();
 
   const [isSignup, setIsSignup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       email: '',
@@ -58,7 +62,13 @@ const AuthScreen = (props: any) => {
     formIsValid: false,
   });
 
-  const authHandler = () => {
+  useEffect(() => {
+    if (error) {
+      Alert.alert('An Error Occurred!', error, [{ text: 'Okay' }]);
+    }
+  }, [error]);
+
+  const authHandler = async () => {
     let action;
 
     if (isSignup) {
@@ -73,7 +83,15 @@ const AuthScreen = (props: any) => {
       );
     }
 
-    dispatch(action);
+    setError(undefined);
+    setIsLoading(true);
+    try {
+      await dispatch(action);
+    } catch (err) {
+      setError(err.message);
+    }
+
+    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(
@@ -119,11 +137,15 @@ const AuthScreen = (props: any) => {
             initialValue=''
           />
           <View style={styles.buttonContainer}>
-            <Button
-              title={isSignup ? 'Sign Up' : 'Login'}
-              color={Colors.primary}
-              onPress={authHandler}
-            />
+            {isLoading ? (
+              <ActivityIndicator size='small' color={Colors.primary} />
+            ) : (
+              <Button
+                title={isSignup ? 'Sign Up' : 'Login'}
+                color={Colors.primary}
+                onPress={authHandler}
+              />
+            )}
           </View>
           <View style={styles.buttonContainer}>
             <Button
