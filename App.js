@@ -8,12 +8,14 @@ import { Provider } from 'react-redux';
 import cartReducer from './store/reducers/cart';
 import productsReducer from './store/reducers/products';
 import ordersReducer from './store/reducers/orders';
+import authReducer from './store/reducers/auth';
 import ShopNavigator from './navigation/ShopNavigator';
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   products: productsReducer,
   orders: ordersReducer,
+  auth: authReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
