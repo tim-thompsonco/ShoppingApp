@@ -1,10 +1,20 @@
 import { AsyncStorage } from 'react-native';
+import { createDispatchHook } from 'react-redux';
 
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
 
-export const authenticate = (userId: string, token: string) => {
-  return { type: AUTHENTICATE, userId: userId, token: token };
+let timer: any;
+
+export const authenticate = (
+  userId: string,
+  token: string,
+  expireTime: number
+) => {
+  return (dispatch: any) => {
+    dispatch(setLogoutTimer(expireTime));
+    dispatch({ type: AUTHENTICATE, userId: userId, token: token });
+  };
 };
 
 export const signup = (email: string, password: string) => {
@@ -39,7 +49,13 @@ export const signup = (email: string, password: string) => {
 
     const resData = await response.json();
 
-    dispatch(authenticate(resData.localId, resData.idToken));
+    dispatch(
+      authenticate(
+        resData.localId,
+        resData.idToken,
+        parseInt(resData.expiresIn) * 1000
+      )
+    );
 
     const expirationDate = new Date(
       new Date().getTime() + parseInt(resData.expiresIn) * 1000
@@ -82,7 +98,13 @@ export const login = (email: string, password: string) => {
 
     const resData = await response.json();
 
-    dispatch(authenticate(resData.localId, resData.idToken));
+    dispatch(
+      authenticate(
+        resData.localId,
+        resData.idToken,
+        parseInt(resData.expiresIn) * 1000
+      )
+    );
 
     const expirationDate = new Date(
       new Date().getTime() + parseInt(resData.expiresIn) * 1000
@@ -92,7 +114,24 @@ export const login = (email: string, password: string) => {
 };
 
 export const logout = () => {
+  clearLogoutTimer();
+  AsyncStorage.removeItem('userData');
+
   return { type: LOGOUT };
+};
+
+const clearLogoutTimer = () => {
+  if (timer) {
+    clearTimeout(timer);
+  }
+};
+
+const setLogoutTimer = (expirationTime: number) => {
+  return (dispatch: any) => {
+    timer = setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime);
+  };
 };
 
 const saveDataToStorage = (

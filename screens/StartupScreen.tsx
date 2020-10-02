@@ -6,7 +6,7 @@ import Centered from '../components/UI/Centered';
 import Colors from '../constants/Colors';
 import * as authActions from '../store/actions/auth';
 
-interface storedUserData {
+interface parsedUserData {
   token: string;
   userId: string;
   expireDate: string;
@@ -24,17 +24,20 @@ const StartupScreen = (props: any) => {
         return;
       }
 
-      const transformedData: storedUserData = JSON.parse(userData);
+      const transformedData: parsedUserData = JSON.parse(userData);
       const { token, userId, expireDate } = transformedData;
-      const expirationDate = new Date(expireDate);
+      const expirationDate: Date = new Date(expireDate);
 
       if (expirationDate <= new Date() || !token || !userId) {
         props.navigation.navigate('Auth');
         return;
       }
 
+      const expirationTime: number =
+        expirationDate.getTime() - new Date().getTime();
+
       props.navigation.navigate('Shop');
-      dispatch(authActions.authenticate(userId, token));
+      dispatch(authActions.authenticate(userId, token, expirationTime));
     };
 
     tryLogin();
