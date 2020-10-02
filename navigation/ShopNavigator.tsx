@@ -14,6 +14,7 @@ import EditProductsScreen from '../screens/user/EditProductsScreen';
 import StartupScreen from '../screens/StartupScreen';
 import AuthScreen from '../screens/user/AuthScreen';
 import Colors from '../constants/Colors';
+import Logout from '../components/Logout';
 
 const defaultNavOptions = {
   headerStyle: {
@@ -90,6 +91,9 @@ const ShopNavigator = createDrawerNavigator(
   {
     contentOptions: {
       activeTintColor: Colors.primary,
+    },
+    contentComponent: (props: any) => {
+      return <Logout {...props} />;
     },
   }
 );
