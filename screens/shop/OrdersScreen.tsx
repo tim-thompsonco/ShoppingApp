@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { FlatList, Platform, ActivityIndicator } from 'react-native';
+import { FlatList, Platform, ActivityIndicator, Text } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/UI/CustomHeaderButton';
@@ -36,6 +36,14 @@ const OrdersScreen = () => {
     return (
       <Centered>
         <ActivityIndicator size='large' color={Colors.primary} />
+      </Centered>
+    );
+  }
+
+  if (orders.length === 0) {
+    return (
+      <Centered>
+        <Text>No orders found for this user!</Text>
       </Centered>
     );
   }
