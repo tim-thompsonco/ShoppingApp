@@ -1,7 +1,10 @@
-import { createDispatchHook } from 'react-redux';
+import { AsyncStorage } from 'react-native';
 
-export const SIGNUP = 'SIGNUP';
-export const LOGIN = 'LOGIN';
+export const AUTHENTICATE = 'AUTHENTICATE';
+
+export const authenticate = (userId: string, token: string) => {
+  return { type: AUTHENTICATE, userId: userId, token: token };
+};
 
 export const signup = (email: string, password: string) => {
   return async (dispatch: any) => {
@@ -35,7 +38,12 @@ export const signup = (email: string, password: string) => {
 
     const resData = await response.json();
 
-    dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId });
+    dispatch(authenticate(resData.localId, resData.idToken));
+
+    const expirationDate = new Date(
+      new Date().getTime() + parseInt(resData.expiresIn) * 1000
+    );
+    saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
 };
 
@@ -73,6 +81,26 @@ export const login = (email: string, password: string) => {
 
     const resData = await response.json();
 
-    dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId });
+    dispatch(authenticate(resData.localId, resData.idToken));
+
+    const expirationDate = new Date(
+      new Date().getTime() + parseInt(resData.expiresIn) * 1000
+    );
+    saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
+};
+
+const saveDataToStorage = (
+  token: string,
+  userId: string,
+  expirationDate: Date
+) => {
+  AsyncStorage.setItem(
+    'userData',
+    JSON.stringify({
+      token: token,
+      userId: userId,
+      expireDate: expirationDate.toISOString(),
+    })
+  );
 };
