@@ -1,5 +1,5 @@
 <h2>ShoppingApp</h2>
-<p>This is a cross-platform mobile application created with React Native as part of the React Native course on Udemy by Academind. This app is the main part of the course, so I thought it would be a good example of my current knowledge with React Native and Redux, since I am currently working through the course and the commits will reflect my progress. My modification to the app is to implement TypeScript for type safety, which has been on my "To Do" list of things to learn for a while.</p>
+<p>This is a cross-platform mobile application created with React Native as part of the React Native course on Udemy by Academind. This app is the main part of the course, so I thought it would be a good example of my current knowledge with React Native and Redux. My modification to the app is to implement TypeScript for type safety, which has been on my "To Do" list of things to learn for a while. Data persistence is handled with Google Firebase.</p>
 
 <h2>Features</h2>
 <p>Users can create accounts, or if they have an account, they can log in. The user will stay logged in for as long as their authentication token is valid, and once it expires, the user is automatically logged out.</p>
@@ -23,6 +23,7 @@
     <li>React Redux
     <li>JavaScript
     <li>TypeScript
+      <li>Google Firebase
   </ul>
 
 <h2>Authors</h2>
