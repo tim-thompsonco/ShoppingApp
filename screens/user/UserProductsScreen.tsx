@@ -80,7 +80,7 @@ const UserProductsScreen = (props: any) => {
   );
 };
 
-UserProductsScreen.navigationOptions = (navData: any) => {
+export const userProductsScreenOptions = (navData: any) => {
   return {
     headerTitle: 'Your Products',
     headerLeft: () => (

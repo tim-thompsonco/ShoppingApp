@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, View, SafeAreaView, StyleSheet } from 'react-native';
-import { DrawerItems } from 'react-navigation-drawer';
+import { DrawerItemList } from '@react-navigation/drawer';
 import { useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
@@ -16,7 +16,7 @@ const Logout = (props) => {
   return (
     <View style={styles.screen}>
       <SafeAreaView>
-        <DrawerItems {...props} />
+        <DrawerItemList {...props} />
         <Button title='Logout' color={Colors.primary} onPress={logoutUser} />
       </SafeAreaView>
     </View>

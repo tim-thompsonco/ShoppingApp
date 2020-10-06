@@ -97,7 +97,7 @@ const CartScreen = () => {
   );
 };
 
-CartScreen.navigationOptions = {
+export const cartScreenOptions = {
   headerTitle: 'Your Cart',
 };
 

@@ -215,7 +215,7 @@ const EditProductsScreen = (props: any) => {
   );
 };
 
-EditProductsScreen.navigationOptions = (navData: any) => {
+export const editProductsScreenOptions = (navData: any) => {
   const submitFn = navData.navigation.getParam('submit');
 
   return {
