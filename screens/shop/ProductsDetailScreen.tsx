@@ -22,7 +22,9 @@ interface ProductsState {
 const ProductsDetailScreen = (props: any) => {
   const dispatch = useDispatch();
 
-  const productId: string = props.navigation.getParam('productId');
+  const productId: string = props.route.params
+    ? props.route.params.productId
+    : null;
 
   const selectedProduct:
     | Product
@@ -55,7 +57,7 @@ const ProductsDetailScreen = (props: any) => {
 
 export const productDetailScreenOptions = (navData: any) => {
   return {
-    headerTitle: navData.navigation.getParam('productTitle'),
+    headerTitle: navData.route.params.productTitle,
   };
 };
 
