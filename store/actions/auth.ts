@@ -3,8 +3,13 @@ import { createDispatchHook } from 'react-redux';
 
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
+export const SET_DID_TRY_AUTO_LOGIN = 'SET_DID_TRY_AUTO_LOGIN';
 
 let timer: any;
+
+export const setDidTryAutoLogin = () => {
+  return { type: SET_DID_TRY_AUTO_LOGIN };
+};
 
 export const authenticate = (
   userId: string,

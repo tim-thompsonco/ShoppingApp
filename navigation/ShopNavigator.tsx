@@ -21,7 +21,7 @@ import EditProductsScreen, {
   editProductsScreenOptions,
 } from '../screens/user/EditProductsScreen';
 import StartupScreen from '../screens/StartupScreen';
-import AuthScreen from '../screens/user/AuthScreen';
+import AuthScreen, { AuthScreenOptions } from '../screens/user/AuthScreen';
 import Colors from '../constants/Colors';
 import Logout from '../components/Logout';
 import ProductItem from '../components/shop/ProductItem';
@@ -37,7 +37,7 @@ const defaultNavOptions = {
 
 const ProductsStackNavigator = createStackNavigator();
 
-export const ProductsNavigator = () => {
+const ProductsNavigator = () => {
   return (
     <ProductsStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <ProductsStackNavigator.Screen
@@ -61,7 +61,7 @@ export const ProductsNavigator = () => {
 
 const OrdersStackNavigator = createStackNavigator();
 
-export const OrdersNavigator = () => {
+const OrdersNavigator = () => {
   return (
     <OrdersStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <OrdersStackNavigator.Screen
@@ -75,7 +75,7 @@ export const OrdersNavigator = () => {
 
 const AdminStackNavigator = createStackNavigator();
 
-export const AdminNavigator = () => {
+const AdminNavigator = () => {
   return (
     <AdminStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <AdminStackNavigator.Screen
@@ -147,19 +147,16 @@ export const ShopNavigator = () => {
   );
 };
 
-// const AuthNavigator = createStackNavigator(
-//   {
-//     Auth: AuthScreen,
-//   },
-//   {
-//     defaultNavigationOptions: defaultNavOptions,
-//   }
-// );
+const AuthStackNavigator = createStackNavigator();
 
-// const MainNavigator = createSwitchNavigator({
-//   Startup: StartupScreen,
-//   Auth: AuthNavigator,
-//   Shop: ShopNavigator,
-// });
-
-// export default createAppContainer(MainNavigator);
+export const AuthNavigator = () => {
+  return (
+    <AuthStackNavigator.Navigator screenOptions={defaultNavOptions}>
+      <AuthStackNavigator.Screen
+        name='Auth'
+        component={AuthScreen}
+        options={AuthScreenOptions}
+      />
+    </AuthStackNavigator.Navigator>
+  );
+};
