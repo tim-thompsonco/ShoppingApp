@@ -16,6 +16,8 @@
 <img src="assets/screenshots/Orders Screen.png" alt="Screenshot of orders screen" width='60%' height='auto'>
 <p>Users can view the admin products screen where they can delete products, and if deleted products are in the cart, the cart is updated.</p>
 <img src="assets/screenshots/Admin Products Screen.png" alt="Screenshot of admin products screen" width='60%' height='auto'>
+<p>Once an order is placed for a product, a push notification is sent to the owner of the product.</p>
+<img src="assets/screenshots/Push Notification Screenshot.png" alt="Screenshot of admin products screen" width='40%' height='auto'>
 
 <h2>Built With</h2>
   <ul>
