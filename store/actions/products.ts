@@ -28,6 +28,7 @@ export const fetchProducts = () => {
           new Product(
             key,
             resData[key].ownerId,
+            resData[key].ownerPushToken,
             resData[key].title,
             resData[key].imageUrl,
             resData[key].description,
@@ -73,13 +74,16 @@ export const createProduct = (
   price: number
 ) => {
   return async (dispatch: any, getState: any) => {
-    let pushToken;
-    let statusObj = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    let pushToken: string | null;
+    let permissionStatus: string = (
+      await Permissions.getAsync(Permissions.NOTIFICATIONS)
+    ).status;
 
-    if (statusObj.status !== 'granted') {
-      statusObj = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (permissionStatus !== 'granted') {
+      permissionStatus = (await Permissions.askAsync(Permissions.NOTIFICATIONS))
+        .status;
     }
-    if (statusObj.status !== 'granted') {
+    if (permissionStatus !== 'granted') {
       pushToken = null;
     } else {
       pushToken = (await Notifications.getExpoPushTokenAsync()).data;
@@ -117,6 +121,7 @@ export const createProduct = (
         imageUrl,
         price,
         ownerId: userId,
+        pushToken: pushToken,
       },
     });
   };

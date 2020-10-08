@@ -6,7 +6,7 @@ export const SET_ORDER = 'SET_ORDER';
 
 export const fetchOrders = () => {
   return async (dispatch: any, getState: any) => {
-    const userId = getState().auth.userId;
+    const userId: string = getState().auth.userId;
 
     try {
       const response = await fetch(
@@ -40,9 +40,9 @@ export const fetchOrders = () => {
 
 export const addOrder = (cartItems: CartItem[], totalAmount: number) => {
   return async (dispatch: any, getState: any) => {
-    const token = getState().auth.token;
-    const userId = getState().auth.userId;
-    const date = new Date();
+    const token: string = getState().auth.token;
+    const userId: string = getState().auth.userId;
+    const date: Date = new Date();
 
     const response = await fetch(
       `https://shoppingapp-a4047.firebaseio.com/orders/${userId}.json?auth=${token}`,
@@ -74,5 +74,23 @@ export const addOrder = (cartItems: CartItem[], totalAmount: number) => {
         date: date,
       },
     });
+
+    for (const cartItem of cartItems) {
+      const pushToken: string = cartItem.pushToken;
+
+      fetch('https://exp.host/--/api/v2/push/send', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Accept-Encoding': 'gzip, deflate',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: pushToken,
+          title: 'Order was placed!',
+          body: cartItem.productTitle,
+        }),
+      });
+    }
   };
 };
